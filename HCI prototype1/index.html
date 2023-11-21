@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> HCI Project ver 1.1 </title>
+</head>
+
+<body>
+    <button id="courseTimetablesButton">See Course Timetables</button>
+    <button id="moduleTimesButton">See Module Times</button>
+
+    <div id="note1">
+        <p>This is note 1. It will disappear when the table or dropdowns appear.</p>
+    </div>
+
+    <div id="note2">
+        <p>This is note 2. It will also disappear when the table or dropdowns appear.</p>
+    </div>
+
+    <div id="dropdownSection" style="display: none;">
+        <label for="dropdown1">Select Course:</label>
+        <input type="text" id="dropdown1" list="options1">
+
+        <datalist id="options1">
+            <option value="BCT">
+            <option value="B.A">
+            <option value="MAI">
+        </datalist>
+
+        <br>
+
+        <label for="dropdown2">Select Year:</label>
+        <input type="text" id="dropdown2" list="options2">
+
+        <datalist id="options2">
+            <option value="Year 1">
+            <option value="Year 2">
+            <option value="Year 3">
+            <option value="Year 4">
+        </datalist>
+
+        <br>
+
+        <label for="dropdown3">Select Semester:</label>
+        <input type="text" id="dropdown3" list="options3">
+
+        <datalist id="options3">
+            <option value="Semester 1">
+            <option value="Semester 2">
+        </datalist>
+
+        <br>
+
+        <button id="showLinks">Show Links</button>
+    </div>
+
+    <div id="tableSection" style="display: none;">
+        <label for="tableDropdown">Select Option:</label>
+        <input type="text" id="tableDropdown" list="tableOptions">
+
+        <datalist id="tableOptions">
+            <option value="CT318 Human Computer Interaction">
+            <option value="MA385 Numerical Analysis I">
+            <option value="CT326 Programming III">
+            <option value="IE446 Project Management">
+        </datalist>
+
+        <button id="submitTable">Submit</button>
+
+        <br>
+
+        <table border="1" id="timetable">
+
+        </table>
+    </div>
+
+    <div id="linkContainer"></div>
+
+    <script>
+        const note1 = document.getElementById("note1");
+        const note2 = document.getElementById("note2");
+        const courseTimetablesButton = document.getElementById("courseTimetablesButton");
+        const moduleTimesButton = document.getElementById("moduleTimesButton");
+        const dropdownSection = document.getElementById("dropdownSection");
+        const tableSection = document.getElementById("tableSection");
+        const showLinksButton = document.getElementById("showLinks");
+        const linkContainer = document.getElementById("linkContainer");
+        const tableDropdown = document.getElementById("tableDropdown");
+        const submitTableButton = document.getElementById("submitTable");
+
+        courseTimetablesButton.addEventListener("click", () => {
+            note1.style.display = "none";
+            note2.style.display = "none";
+            dropdownSection.style.display = "block";
+            tableSection.style.display = "none";
+        });
+
+        moduleTimesButton.addEventListener("click", () => {
+            note1.style.display = "none";
+            note2.style.display = "none";
+            dropdownSection.style.display = "none";
+            tableSection.style.display = "block";
+            updateTable();
+        });
+
+        showLinksButton.addEventListener("click", () => {
+            const selectedOption1 = document.getElementById("dropdown1").value;
+            const selectedOption2 = document.getElementById("dropdown2").value;
+            const selectedOption3 = document.getElementById("dropdown3").value;
+
+            const linkMap = {
+                "BCT|Year 1|Semester 1": "https://www.universityofgalway.ie/media/publicsub-sites/engineering/files/collegelevel/timetables/it/1BCT.pdf",
+                "BCT|Year 2|Semester 1": "https://www.universityofgalway.ie/media/publicsub-sites/engineering/files/collegelevel/timetables/it/2BCT.pdf",
+                "BCT|Year 3|Semester 1": "https://www.universityofgalway.ie/media/publicsub-sites/engineering/files/collegelevel/timetables/it/3BCT.pdf",
+                "B.A|Year 1|Semester 1": "https://www.universityofgalway.ie/media/publicsub-sites/engineering/files/collegelevel/timetables/it/1BA.pdf",
+                "B.A|Year 2|Semester 1": "https://www.universityofgalway.ie/media/publicsub-sites/engineering/files/collegelevel/timetables/it/2BA.pdf",
+                "B.A|Year 3|Semester 1": "https://www.universityofgalway.ie/media/publicsub-sites/engineering/files/collegelevel/timetables/it/3BA.pdf",
+                "MAI|Year 1|Semester 1": "https://www.universityofgalway.ie/media/publicsub-sites/engineering/files/collegelevel/timetables/it/1MAI1.pdf",
+            };
+
+            const key = `${selectedOption1}|${selectedOption2}|${selectedOption3}`;
+            const link = linkMap[key];
+
+            if (link) {
+                linkContainer.innerHTML = `<a href="${link}" target="_blank">Click to view timetable</a>`;
+            } else {
+                linkContainer.innerHTML = "No link available for the selected options.";
+            }
+        });
+
+        submitTableButton.addEventListener("click", () => {
+            const selectedTableOption = tableDropdown.value;
+            updateTable(selectedTableOption);
+        });
+
+        function updateTable(selectedOption) {
+            const table = document.getElementById("timetable");
+
+            table.innerHTML = "";
+
+            const headerRow = table.insertRow(0);
+            const timeDayHeader = headerRow.insertCell(0);
+            timeDayHeader.innerHTML = "Time/Day";
+
+            const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+            for (let i = 0; i < daysOfWeek.length; i++) {
+                const dayHeader = headerRow.insertCell(i + 1);
+                dayHeader.innerHTML = daysOfWeek[i];
+            }
+
+            const timeSlots = ["9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM"];
+            for (let i = 0; i < timeSlots.length; i++) {
+                const row = table.insertRow(i + 1);
+                const timeDayCell = row.insertCell(0);
+                timeDayCell.innerHTML = timeSlots[i];
+
+                for (let j = 0; j < daysOfWeek.length; j++) {
+                    const cell = row.insertCell(j + 1);
+
+                    if (selectedOption === "CT318 Human Computer Interaction" && timeSlots[i] === "11:00 AM" && daysOfWeek[j] === "Monday") {
+                        cell.innerHTML = "CT318 HCI [ROOM: IT125]";
+                    } else if (selectedOption === "CT318 Human Computer Interaction" && timeSlots[i] === "12:00 PM" && daysOfWeek[j] === "Wednesday") {
+                        cell.innerHTML = "CT318 HCI [ROOM: Dillon Theatre]";
+                    } else if (selectedOption === "MA385 Numerical Analysis I" && (timeSlots[i] === "9:00 AM" && daysOfWeek[j] === "Monday" || timeSlots[i] === "3:00 PM" && daysOfWeek[j] === "Thursday")) {
+                        cell.innerHTML = "MA385 Numerical Analysis I";
+                    } else if (selectedOption === "CT326 Programming III" && (timeSlots[i] === "3:00 PM" && daysOfWeek[j] === "Monday" || timeSlots[i] === "12:00 PM" && daysOfWeek[j] === "Tuesday" || timeSlots[i] === "3:00 PM" && daysOfWeek[j] === "Wednesday")) {
+                        cell.innerHTML = "CT326 Programming III";
+                    } else if (selectedOption === "IE446 Project Management" && (timeSlots[i] === "5:00 PM" && daysOfWeek[j] === "Monday" || timeSlots[i] === "6:00 PM" && daysOfWeek[j] === "Monday")) {
+                        cell.innerHTML = "IE446 Project Management";
+                    } else {
+                        cell.innerHTML = "";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
