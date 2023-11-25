@@ -5,7 +5,7 @@
     <title> HCI Project ver 1.1 </title>
     <link rel="stylesheet" href="hci.css">
     <div class="header"></div>
-	<div class="logo"><img src="nuiglogo.png" alt="Logo"> </div>
+    <div class="logo"><img src="nuiglogo.png" alt="Logo"> </div>
     <h1> Timetable Assistant</h1>
 </head>
 
@@ -67,6 +67,9 @@
             <option value="MA385 Numerical Analysis I">
             <option value="CT326 Programming III">
             <option value="IE446 Project Management">
+            <!-- Added options for the new classes -->
+            <option value="EE220 Digital Systems">
+            <option value="ME304 Mechanical Analysis & Design">
         </datalist>
 
         <button id="submitTable">Submit</button>
@@ -100,7 +103,7 @@
             note2.style.display = "none";
             dropdownSection.style.display = "block";
             tableSection.style.display = "none";
-            linkContainer.innerHTML = ""; 
+            linkContainer.innerHTML = "";
         });
 
         moduleTimesButton.addEventListener("click", () => {
@@ -109,7 +112,7 @@
             dropdownSection.style.display = "none";
             tableSection.style.display = "block";
             updateTable();
-            linkContainer.innerHTML = ""; 
+            linkContainer.innerHTML = "";
         });
 
         showLinksButton.addEventListener("click", () => {
@@ -138,17 +141,16 @@
         });
 
         submitTableButton.addEventListener("click", () => {
-    const selectedTableOption = tableDropdown.value;
-    updateTable(selectedTableOption);
-    linkContainer.innerHTML = ""; 
-    
-    
-    dropdown1.value = "";
-    dropdown2.value = "";
-    dropdown3.value = "";
-   
-    tableDropdown.value = "";
-});
+            const selectedTableOption = tableDropdown.value;
+            updateTable(selectedTableOption);
+            linkContainer.innerHTML = "";
+
+            dropdown1.value = "";
+            dropdown2.value = "";
+            dropdown3.value = "";
+
+            tableDropdown.value = "";
+        });
 
         function updateTable(selectedOption) {
             const table = document.getElementById("timetable");
@@ -184,6 +186,10 @@
                         cell.innerHTML = "CT326 Programming III";
                     } else if (selectedOption === "IE446 Project Management" && (timeSlots[i] === "5:00 PM" && daysOfWeek[j] === "Monday" || timeSlots[i] === "6:00 PM" && daysOfWeek[j] === "Monday")) {
                         cell.innerHTML = "IE446 Project Management";
+                    } else if (selectedOption === "EE220 Digital Systems" && ((timeSlots[i] === "9:00 AM" || timeSlots[i] === "10:00 AM") && daysOfWeek[j] === "Wednesday" || timeSlots[i] === "1:00 PM" && daysOfWeek[j] === "Thursday")) {
+                        cell.innerHTML = "EE220 Digital Systems";
+                    } else if (selectedOption === "ME304 Mechanical Analysis & Design" && ((timeSlots[i] === "12:00 PM" || timeSlots[i] === "4:00 PM" || timeSlots[i] === "5:00 PM") && daysOfWeek[j] === "Wednesday")) {
+                        cell.innerHTML = "ME304 Mechanical Analysis & Design";
                     } else {
                         cell.innerHTML = "";
                     }
