@@ -181,15 +181,19 @@
                     } else if (selectedOption === "CT318 Human Computer Interaction" && timeSlots[i] === "12:00 PM" && daysOfWeek[j] === "Wednesday") {
                         cell.innerHTML = "CT318 HCI [ROOM: Dillon Theatre]";
                     } else if (selectedOption === "MA385 Numerical Analysis I" && (timeSlots[i] === "9:00 AM" && daysOfWeek[j] === "Monday" || timeSlots[i] === "3:00 PM" && daysOfWeek[j] === "Thursday")) {
-                        cell.innerHTML = "MA385 Numerical Analysis I";
-                    } else if (selectedOption === "CT326 Programming III" && (timeSlots[i] === "3:00 PM" && daysOfWeek[j] === "Monday" || timeSlots[i] === "12:00 PM" && daysOfWeek[j] === "Tuesday" || timeSlots[i] === "3:00 PM" && daysOfWeek[j] === "Wednesday")) {
-                        cell.innerHTML = "CT326 Programming III";
+                        cell.innerHTML = "MA385 Numerical Analysis I [ROOM: AC201]";
+                    } else if (selectedOption === "CT326 Programming III" && (timeSlots[i] === "3:00 PM" && daysOfWeek[j] === "Monday" || timeSlots[i] === "12:00 PM" && daysOfWeek[j] === "Tuesday") {
+                        cell.innerHTML = "CT326 Programming III [ROOM: IT125G]";
+                    } else if (selectedOption === "CT326 Programming III" && (timeSlots[i] === "3:00 PM" && daysOfWeek[j] === "Wednesday")) {
+                        cell.innerHTML = "CT326 Programming III [ROOM: IT125]";
                     } else if (selectedOption === "IE446 Project Management" && (timeSlots[i] === "5:00 PM" && daysOfWeek[j] === "Monday" || timeSlots[i] === "6:00 PM" && daysOfWeek[j] === "Monday")) {
-                        cell.innerHTML = "IE446 Project Management";
-                    } else if (selectedOption === "EE220 Digital Systems" && ((timeSlots[i] === "9:00 AM" || timeSlots[i] === "10:00 AM") && daysOfWeek[j] === "Wednesday" || timeSlots[i] === "1:00 PM" && daysOfWeek[j] === "Thursday")) {
-                        cell.innerHTML = "EE220 Digital Systems";
-                    } else if (selectedOption === "ME304 Mechanical Analysis & Design" && ((timeSlots[i] === "12:00 PM" || timeSlots[i] === "4:00 PM" || timeSlots[i] === "5:00 PM") && daysOfWeek[j] === "Wednesday")) {
-                        cell.innerHTML = "ME304 Mechanical Analysis & Design";
+                        cell.innerHTML = "IE446 Project Management [ROOM: ENG G047]";
+                    } else if (selectedOption === "EE220 Digital Systems" && ((timeSlots[i] === "9:00 AM" || timeSlots[i] === "10:00 AM") && daysOfWeek[j] === "Wednesday" ) {
+                        cell.innerHTML = "EE220 Digital Systems [ROOM: ENG 2034]";
+                    } else if (selectedOption === "EE220 Digital Systems" && (timeSlots[i] === "1:00 PM" && daysOfWeek[j] === "Thursday")) {
+                        cell.innerHTML = "EE220 Digital Systems [ROOM: ENG 2033]";
+                    }else if (selectedOption === "ME304 Mechanical Analysis & Design" && ((timeSlots[i] === "12:00 PM" || timeSlots[i] === "4:00 PM" || timeSlots[i] === "5:00 PM") && daysOfWeek[j] === "Wednesday")) {
+                        cell.innerHTML = "ME304 Mechanical Analysis & Design [ROOM: ENG G017]";
                     } else {
                         cell.innerHTML = "";
                     }
