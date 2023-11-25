@@ -4,9 +4,6 @@
 <head>
     <title> HCI Project ver 1.1 </title>
     <link rel="stylesheet" href="hci.css">
-	<div class="header"></div>
-	<div class="logo"><img src="nuiglogo.png" alt="Logo"> </div>
-    <h1> Timetable Assistant</h1>
 </head>
 
 <body>
@@ -91,12 +88,16 @@
         const linkContainer = document.getElementById("linkContainer");
         const tableDropdown = document.getElementById("tableDropdown");
         const submitTableButton = document.getElementById("submitTable");
+        const dropdown1 = document.getElementById("dropdown1");
+        const dropdown2 = document.getElementById("dropdown2");
+        const dropdown3 = document.getElementById("dropdown3");
 
         courseTimetablesButton.addEventListener("click", () => {
             note1.style.display = "none";
             note2.style.display = "none";
             dropdownSection.style.display = "block";
             tableSection.style.display = "none";
+            linkContainer.innerHTML = ""; 
         });
 
         moduleTimesButton.addEventListener("click", () => {
@@ -105,12 +106,13 @@
             dropdownSection.style.display = "none";
             tableSection.style.display = "block";
             updateTable();
+            linkContainer.innerHTML = ""; 
         });
 
         showLinksButton.addEventListener("click", () => {
-            const selectedOption1 = document.getElementById("dropdown1").value;
-            const selectedOption2 = document.getElementById("dropdown2").value;
-            const selectedOption3 = document.getElementById("dropdown3").value;
+            const selectedOption1 = dropdown1.value;
+            const selectedOption2 = dropdown2.value;
+            const selectedOption3 = dropdown3.value;
 
             const linkMap = {
                 "BCT|Year 1|Semester 1": "https://www.universityofgalway.ie/media/publicsub-sites/engineering/files/collegelevel/timetables/it/1BCT.pdf",
@@ -128,14 +130,22 @@
             if (link) {
                 linkContainer.innerHTML = `<a href="${link}" target="_blank">Click to view timetable</a>`;
             } else {
-                linkContainer.innerHTML = "No link available for the selected options.";
+                linkContainer.innerHTML = '<div class="no-link">No link available for the selected options.</div>';
             }
         });
 
         submitTableButton.addEventListener("click", () => {
-            const selectedTableOption = tableDropdown.value;
-            updateTable(selectedTableOption);
-        });
+    const selectedTableOption = tableDropdown.value;
+    updateTable(selectedTableOption);
+    linkContainer.innerHTML = ""; 
+    
+    
+    dropdown1.value = "";
+    dropdown2.value = "";
+    dropdown3.value = "";
+   
+    tableDropdown.value = "";
+});
 
         function updateTable(selectedOption) {
             const table = document.getElementById("timetable");
